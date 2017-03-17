@@ -1,0 +1,22 @@
+.navbar__brand {
+  float: left;
+  font-size: 1.4em;
+  margin-right: 6px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  @include link-color($color-nav-white);
+  @include link-decoration(none);
+}
+.navbar__links {
+  float: right;
+  margin-top: 4px;
+  a {
+    @include link-color($color-nav-white);
+    @include link-decoration(none);
+    text-transform: uppercase;
+    margin-right: 12px;
+    display: inline;
+    height: 30px;
+  }
+}

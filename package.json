@@ -1,0 +1,75 @@
+{
+  "name": "pipeline",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "lint": "eslint .",
+    "pretest": "npm run lint --silent"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.18.0",
+    "bcrypt": "^1.0.2",
+    "classnames": "^2.2.5",
+    "crypto": "0.0.3",
+    "google-auth-library": "^0.10.0",
+    "google-spreadsheet": "^2.0.3",
+    "googleapis": "^16.1.0",
+    "meteor-node-stubs": "~0.2.0",
+    "moment": "^2.17.1",
+    "normalize-url": "^1.9.0",
+    "react": "^15.4.2",
+    "react-addons-create-fragment": "^15.4.2",
+    "react-addons-css-transition-group": "^15.4.2",
+    "react-addons-linked-state-mixin": "^15.4.2",
+    "react-addons-perf": "^15.4.2",
+    "react-addons-pure-render-mixin": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-addons-transition-group": "^15.4.2",
+    "react-addons-update": "^15.4.2",
+    "react-datepicker": "^0.39.0",
+    "react-dom": "^15.4.2",
+    "react-router": "^3.0.2",
+    "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-import-resolver-meteor": "^0.3.4",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-meteor": "^4.0.1",
+    "eslint-plugin-react": "^6.10.0",
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^16.1.0"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "allowImportExportEverywhere": true
+    },
+    "plugins": [
+      "meteor"
+    ],
+    "extends": [
+      "airbnb",
+      "plugin:meteor/recommended"
+    ],
+    "settings": {
+      "import/resolver": "meteor"
+    },
+    "rules": {
+      "max-len": "off",
+      "import/no-extraneous-dependencies": "off",
+      "import/extensions": ["error", "never"],
+      "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+      "react/jsx-filename-extension": "off"
+    },
+    "globals": {
+      "document": true,
+      "alert": true,
+      "confirm": true,
+      "XMLHttpRequest": true
+    }
+  }
+}

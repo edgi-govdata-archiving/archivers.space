@@ -1,0 +1,54 @@
+.dashboard {
+  height: 100vh;
+  background: #136a8a; /* fallback for old browsers */
+  background: -webkit-linear-gradient(45deg, #136a8a , #267871); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(45deg, #136a8a , #267871); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+  padding-top: 6em;
+
+  .info {
+    min-width: 300px;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .title {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 100;
+    font-size: 28px;
+    letter-spacing: 3px;
+    text-align: center;
+    margin: 0 0 3em;
+    a {
+      color: white;
+      &:hover {
+        color: white;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .stat {
+    float: left;
+    text-align: center;
+    width: 20%;
+    padding: 0 .5em;
+    a {
+      &:hover {
+        color: inherit;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .stat-count {
+    font-size: 40px;
+  }
+
+  .stat-label {
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+}

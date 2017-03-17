@@ -1,0 +1,29 @@
+@import '{}/imports/ui/scss/bootstrap/bootstrap-grid.scss';
+@import '{}/imports/ui/scss/bootstrap/bootstrap-reboot.scss';
+@import '{}/imports/ui/scss/bootstrap/bootstrap.scss';
+
+// variables
+@import '{}/imports/ui/scss/variables/colors';
+
+// mixins
+@import '{}/imports/ui/scss/bootstrap/mixins/clearfix';
+@import '{}/imports/ui/scss/mixins/link-utilities';
+
+// base
+@import '{}/imports/ui/scss/base/base';
+
+// layouts
+@import '{}/imports/ui/scss/layouts/app-regions';
+
+// components
+@import '{}/imports/ui/scss/components/alert';
+@import '{}/imports/ui/scss/components/checkbox';
+@import '{}/imports/ui/scss/components/dashboard';
+@import '{}/imports/ui/scss/components/list.page';
+@import '{}/imports/ui/scss/components/modal';
+@import '{}/imports/ui/scss/components/navbar';
+@import '{}/imports/ui/scss/components/notification';
+@import '{}/imports/ui/scss/components/page';
+@import '{}/imports/ui/scss/components/progressBar';
+@import '{}/imports/ui/scss/components/style';
+@import '{}/imports/ui/scss/components/url';

@@ -1,0 +1,31 @@
+@mixin link-color($color) {
+  color: $color;
+  &:visited {
+    color: $color;
+  }
+  &:focus {
+    color: $color;
+  }
+  &:hover {
+    color: $color;
+  }
+  &:active {
+    color: $color;
+  }
+}
+
+@mixin link-decoration($decoration) {
+  text-decoration: $decoration;
+  &:visited {
+    text-decoration: $decoration;
+  }
+  &:focus {
+    text-decoration: $decoration;
+  }
+  &:hover {
+    text-decoration: $decoration;
+  }
+  &:active {
+    text-decoration: $decoration;
+  }
+}

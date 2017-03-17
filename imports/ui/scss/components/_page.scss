@@ -1,0 +1,42 @@
+.page {
+  padding-bottom: 4em;
+  .container, .container-fluid {
+    margin-top: 1.5em;
+    padding-top: 1.5em;
+    padding-bottom: 1em;
+    border-radius: 6px;
+    background: rgb(255,255,255);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  }
+
+  header {
+    .title {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 100;
+    }
+    .phases {
+      margin-bottom: 6px;
+      a {
+        text-transform: uppercase;
+        margin-right: 10px;
+      }
+    }
+    .description {
+      background-color: rgb(240,240,240);
+      font-size: 14px;
+      font-style: italic;
+      padding: .5em;
+    }
+  }
+
+  .actions {
+    float: right;
+    a {
+      text-align: right;
+      margin-right: 8px;
+      cursor: pointer;
+      color: blue;
+    }
+  }
+}

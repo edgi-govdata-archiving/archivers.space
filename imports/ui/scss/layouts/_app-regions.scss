@@ -1,0 +1,17 @@
+.l-app {
+  @include clearfix;
+  min-height: 100vh;
+}
+.l-wrap {
+  @include clearfix;
+  display: block;
+  min-height: 100vh;
+  background-color: $color-app-bg;
+}
+.l-navbar {
+  width: 100%;
+  height: 75px;
+  display: block;
+  padding: 20px 1em;
+  background: $color-nav-bg;
+}

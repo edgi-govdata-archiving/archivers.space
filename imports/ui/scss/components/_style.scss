@@ -1,0 +1,25 @@
+.clear { clear: both; }
+
+.status-merged { background: #CCCCCC !important; opacity: 0.5; color: #666666; } /* blue */
+.status-crawlable { background: #EEEEEE !important; opacity: 0.5; color: #666666; } /* blue */
+.status-new { background: #FFF !important; }
+.status-research { background: $color-research !important; }
+.status-harvest { background: $color-harvest !important; }
+.status-bag { background: $color-bag !important; }
+.status-describe { background: $color-describe !important; }
+.status-finalize { background: $color-bag !important; }
+.status-error { background: $color-error !important; }
+.status-done { background: $color-done !important; }
+
+.status-merged-text { color: #CCCCCC; }
+.status-new-text { color: #666666; }
+.status-research-text { color: $color-research; }
+.status-harvest-text { color: $color-harvest; }
+.status-bag-text { color: $color-bag; }
+.status-describe-text { color: $color-describe; }
+.status-finalize-text { color: $color-bag; }
+.status-error-text { color: $color-error; }
+.status-done-text { color: $color-done; }
+.status-crawlable-text { color: #777; opacity: 0.5; }
+
+.inactive { color: #888; }

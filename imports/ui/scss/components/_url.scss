@@ -1,0 +1,97 @@
+#url {
+  .priority {
+    float: right;
+    max-width: 150px;
+  }
+
+  .phase.row {
+    .phase-title {
+      float: left;
+      position: relative;
+      &::after {
+        position: absolute;
+        content: "";
+        width: 0;
+        height: 0;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+      &.is-collapsed {
+        &::after {
+          border-top: 8px solid transparent;
+          border-bottom: 8px solid transparent;
+          border-left: 8px solid #000;
+          top: 6px;
+          right: -15px;
+        }
+        &.status-research-text {
+          &::after {
+            border-left: 8px solid #8BE3FF;
+          }
+        }
+        &.status-harvest-text {
+          &::after {
+            border-left: 8px solid #A883E8;
+          }
+        }
+        &.status-bag-text {
+          &::after {
+            border-left: 8px solid #FF9651;
+          }
+        }
+        &.status-describe-text {
+          &::after {
+            border-left: 8px solid rgb(25,152,85);
+          }
+        }
+      }
+      &.is-open {
+        &::after {
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-top: 8px solid #000;
+          top: 10px;
+          right: -20px;
+        }
+        &.status-research-text {
+          &::after {
+            border-top: 8px solid #8BE3FF;
+          }
+        }
+        &.status-harvest-text {
+          &::after {
+            border-top: 8px solid #A883E8;
+          }
+        }
+        &.status-bag-text {
+          &::after {
+            border-top: 8px solid #FF9651;
+          }
+        }
+        &.status-describe-text {
+          &::after {
+            border-top: 8px solid rgb(25,152,85);
+          }
+        }
+      }
+    }
+    .checkbox-wrap {
+      float: right;
+      position: relative;
+    }
+    .checkbox {
+      display: inline-block;
+      float: left;
+      height: 20px;
+      margin: 0;
+    }
+    .checkbox-pseudolabel {
+      display: inline-block;
+      float: left;
+      font-style: italic;
+      line-height: 1em;
+      padding: 2px 0 0 6px;
+    }
+  }
+}
