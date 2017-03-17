@@ -196,27 +196,31 @@ Meteor.methods({
 
   // eslint-disable-next-line meteor/audit-argument-checks
   'urls.unlock': function urlUnlock(urlId) {
+    // Calculate the threshold date for making url locks available for release.
+    const twoWeeksAgo = new Date();
+    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+
     const url = Urls.findOne(urlId);
-    if (url.locked !== this.userId) {
+    if ((url.locked && url.locked === this.userId) || (url.locked && Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP) && url.lock_time <= twoWeeksAgo)) {
+      // Add a record of this lock/unlock cycle to lock_history.
+      LockHistory.insert({
+        url: urlId,
+        user: url.locked,
+        locked_at: url.lock_time,
+        unlocked_at: new Date(),
+      });
+
+      // Remove the lock.
+      Urls.update(urlId, { $set: {
+        locked: undefined,
+        lock_username: undefined,
+        lock_time: undefined,
+      } });
+
+      Meteor.users.update(url.locked, { $set: { lock_url_uuid: undefined } });
+    } else {
       throw new Meteor.Error('not-authorized');
     }
-
-    // Add a record of this lock/unlock cycle to lock_history.
-    LockHistory.insert({
-      url: urlId,
-      user: url.locked,
-      locked_at: url.lock_time,
-      unlocked_at: new Date(),
-    });
-
-    // Remove the lock.
-    Urls.update(urlId, { $set: {
-      locked: undefined,
-      lock_username: undefined,
-      lock_time: undefined,
-    } });
-
-    Meteor.users.update(url.locked, { $set: { lock_url_uuid: undefined } });
   },
 
   // eslint-disable-next-line meteor/audit-argument-checks
