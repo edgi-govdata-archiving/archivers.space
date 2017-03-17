@@ -1,12 +1,14 @@
 # archivers.space
 
-Public repo for issues &amp; feature-requests relating to [archivers.space](https://www.archivers.space/), an event data management application used at DataRescue events.
+This is the codebase and issue queue for [archivers.space](https://www.archivers.space/), an event data management application used at DataRescue events.
 
 ## About the Project
 
-Thank you for your interest in DataRescue activities, you can learn more from the [DataRefuge project](http://www.ppehlab.org/) and [EDGI](https://envirodatagov.org/).
+Thank you for your interest in DataRescue activities. You can learn more from the [DataRefuge project](http://www.ppehlab.org/) and [EDGI](https://envirodatagov.org/).
 
-Code for the archivers app is in a protected repo while we complete a security audit, we have a [code walkthrough](https://youtu.be/v-1nrXCIHn8) for those interested in getting familiar with the codebase in the meantime. Our [issue queue](https://github.com/edgi-govdata-archiving/archivers.space/issues) is public so that event organizers and participants can provide feedback, report bugs, and request features.
+If you're an event organizer or archivers.space user and you'd like to provide feedback, report a bug, or request a feature, please use our [issue queue](https://github.com/edgi-govdata-archiving/archivers.space/issues).
+
+If you'd like to contribute to the project, please read our [Contribution Guidelines](https://github.com/edgi-govdata-archiving/archivers.space/blob/master/CONTRIBUTING.md).
 
 ## Support
 
