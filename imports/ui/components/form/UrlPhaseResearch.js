@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-for, react/jsx-no-bind, react/forbid-prop-types, jsx-a11y/no-static-element-interactions, react/require-default-props */
+/* eslint-disable jsx-a11y/label-has-for, react/jsx-no-bind, react/forbid-prop-types, jsx-a11y/no-static-element-interactions, react/require-default-props, no-shadow, react/no-array-index-key, no-script-url */
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
@@ -117,15 +117,17 @@ export default class UrlPhaseResearch extends React.Component {
           <p>Link URLs if they are closely related and would be most easily tackled as a group.</p>
           <UrlSearch disabled={disabled} onSelect={this.handleSelectLinkUrl.bind(this)} />
           <ul>
-            {groupUrls.map((index) => {
-              const urlLink = (
+            {
+              // @todo lots of linting errors in this block here
+              // address so we can remove no-shadow, react/no-array-index-key,
+              // no-script-url from exceptions at top of page
+              groupUrls.map((url, index) =>
                 <li key={index}>
                   <Link to={`/urls/${url.uuid}`}>{url.uuid || 'no uuid'} {url.url}</Link>
-                  <a onClick={this.handleUnlinkUrl.bind(this, url)}>(Unlink)</a>
-                </li>
-              );
-              return urlLink;
-            })}
+                  <a href="javascript:void(0);" onClick={this.handleUnlinkUrl.bind(this, url)}>(Unlink)</a>
+                </li>,
+              )
+            }
           </ul>
           { !disabled ? <input className="btn btn-primary" type="submit" value="save" /> : undefined }
         </form>
