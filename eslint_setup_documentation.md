@@ -1,6 +1,6 @@
-# ESLINT SETUP
+# ESLint SETUP
 
-To setup ESLINT, one needs Node and NPM (Node Package Manager)
+To setup ESLint, one needs Node and NPM (Node Package Manager)
 To install Node, one can use Homebrew / Linuxbrew
 
 Source - 
@@ -157,14 +157,14 @@ npm WARN checkPermissions Missing write access to /home/chai/node_modules
 ```
 
 Solution
-a. Find groups
+Find groups
 
 ```
 $ groups chai
 chai : chai wheel
 ```
 
-b. Provide write access using chown
+Provide write access using chown
 
 `$ sudo chown -R chai:chai /home/chai/node_modules/ `
 
