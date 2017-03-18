@@ -71,8 +71,9 @@ v7.7.3`
 
 10. Install package eslint using NPM
 
-```$ npm install eslint --save-dev 
 
+`$ npm install eslint --save-dev `
+```
 chai@1.0.0 /home/chai 
 └── eslint@3.18.0 
 npm WARN chai@1.0.0 No description 
@@ -138,20 +139,30 @@ Solution - Not found. Ignored warning
 3. While installing node
 `$ brew install node `
 
-`Error: Unsupported special dependency :perl 
-Please report this bug:    https://github.com/Linuxbrew/linuxbrew/blob/master/share/doc/homebrew/Troubleshooting.md#troubleshooting`
+```
+Error: Unsupported special dependency :perl 
+Please report this bug:    https://github.com/Linuxbrew/linuxbrew/blob/master/share/doc/homebrew/Troubleshooting.md#troubleshooting
+```
+
+Solution 
+
+`$ brew update`
 
 4. Write access missing while installing package using node
 
-`npm WARN checkPermissions Missing write access to /home/chai/node_modules 
+```
+npm WARN checkPermissions Missing write access to /home/chai/node_modules 
 /home/chai 
-└── eslint@3.18.0 `
+└── eslint@3.18.0
+```
 
 Solution
 a. Find groups
 
-`groups chai`
-`chai : chai wheel`
+```
+$ groups chai
+chai : chai wheel
+```
 
 b. Provide write access using chown
 
@@ -172,14 +183,18 @@ Solution
 
 6. Trying to execute eslint directly
 
-`$ eslint sample.js 
-bash: eslint: command not found...`
+```
+$ eslint sample.js 
+bash: eslint: command not found...
+```
 
 7. If you remove the config fine (eslintrc), and try running ESLINT
 
-`Oops! Something went wrong! :(`
+```
+Oops! Something went wrong! :(
 
-`ESLint couldn't find a configuration file.`
+ESLint couldn't find a configuration file.
+```
 
 Solution
 Setup config file using 
