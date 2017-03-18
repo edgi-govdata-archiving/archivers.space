@@ -1,30 +1,30 @@
-#ESLINT SETUP
+# ESLINT SETUP
+
 To setup ESLINT, one needs Node and NPM (Node Package Manager)
 To install Node, one can use Homebrew / Linuxbrew
 Source - http://blog.teamtreehouse.com/install-node-js-npm-linux
 
-###NPM[node package manager]
+### NPM[node package manager]
+
 npm makes it easy for JavaScript developers to share and reuse code, and it makes it easy to update the code that you're sharing.
 These bits of reusable code are called packages, or sometimes modules. A package is just a directory with one or more files in it, that also has a file called "package.json" with some metadata about this package.
 
-NPM can mean
+**_NPM_** can mean
 1. Website 
 2. Registry 
 3. NPM Client (to publish reusable code to registry or pull code from registry)
 
 Node comes with npm installed
 
-Steps 
+## Steps 
 1. Install the pre-requisite Developer Tools (e.g. `Fedora`)
 `[root@chai chai]# sudo dnf groupinstall 'Development Tools' && sudo yum install curl git m4 ruby texinfo bzip2-devel curl-devel expat-devel ncurses-devel zlib-devel -y`
 
 2. Install Linuxbrew
 `[chai@chai ~]$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"]`
 
-
 3. Update the Bashrc file 
-Edit using Vim / Nano / Editor - 
-`vim ~/.bashrc`
+Edit using Vim / Nano / Editor - `vim ~/.bashrc`
 ```
 export PATH="$HOME/.linuxbrew/bin:$PATH"  
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"  
@@ -62,13 +62,11 @@ chai@1.0.0 /home/chai └── eslint@3.18.0 npm WARN chai@1.0.0 No description
 12. Test Eslint
 `[chai@chai ~]$ ./node_modules/.bin/eslint sample.js `
 
-##Possible Errors
+## Possible Errors
 
 1. Running as root/admin
-
 ```ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)" Don't run this as root! -e:110: warning: Insecure world writable dir /usr/lib/jvm/jdk1.8.0_121/bin in PATH, mode 040777
 ```
-
 Solution - Dont run as root
 
 `exit`
@@ -78,7 +76,7 @@ Solution - Dont run as root
 `-e:52: warning: Insecure world writable dir /usr/lib/jvm/jdk1.8.0_121/bin in PATH, mode 040777`
 
 `chmod go-w `
-####Meaning :- 
+#### Meaning :- 
 go (group and others) 
 -w (remove write permission)
 
