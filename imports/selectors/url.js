@@ -1,3 +1,13 @@
+
+// locks that have been checked for longer than two weeks are considered stale
+export function lockIsStale(url = {}) {
+  // Calculate the threshold date for making url locks available for release.
+  const twoWeeksAgo = new Date();
+  twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+
+  return (url.lock_time <= twoWeeksAgo);
+}
+
 export function formatMetadataJSON(url, user = {}) {
   // const agency = Agencies.get(url.agency);
   // return url;

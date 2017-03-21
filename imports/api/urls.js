@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { Roles } from 'meteor/alanning:roles';
-import { phaseSelector } from '../selectors/url';
+import { phaseSelector, lockIsStale } from '../selectors/url';
 import LockHistory from './lock_history';
 
 const normalizeUrl = require('../libs/normalize-url');
@@ -197,26 +197,27 @@ Meteor.methods({
   // eslint-disable-next-line meteor/audit-argument-checks
   'urls.unlock': function urlUnlock(urlId) {
     const url = Urls.findOne(urlId);
-    if (url.locked !== this.userId) {
+
+    if ((url.locked && url.locked === this.userId) || (url.locked && Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP) && lockIsStale(url))) {
+      // Add a record of this lock/unlock cycle to lock_history.
+      LockHistory.insert({
+        url: urlId,
+        user: url.locked,
+        locked_at: url.lock_time,
+        unlocked_at: new Date(),
+      });
+
+      // Remove the lock.
+      Urls.update(urlId, { $set: {
+        locked: undefined,
+        lock_username: undefined,
+        lock_time: undefined,
+      } });
+
+      Meteor.users.update(url.locked, { $set: { lock_url_uuid: undefined } });
+    } else {
       throw new Meteor.Error('not-authorized');
     }
-
-    // Add a record of this lock/unlock cycle to lock_history.
-    LockHistory.insert({
-      url: urlId,
-      user: url.locked,
-      locked_at: url.lock_time,
-      unlocked_at: new Date(),
-    });
-
-    // Remove the lock.
-    Urls.update(urlId, { $set: {
-      locked: undefined,
-      lock_username: undefined,
-      lock_time: undefined,
-    } });
-
-    Meteor.users.update(url.locked, { $set: { lock_url_uuid: undefined } });
   },
 
   // eslint-disable-next-line meteor/audit-argument-checks

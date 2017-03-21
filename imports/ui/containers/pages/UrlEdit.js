@@ -15,6 +15,7 @@ import { status, phaseNum } from '../../../selectors/url';
 
 import Spinner from '../../components/Spinner';
 import Modal from '../../components/Modal';
+import UrlLock from '../../components/UrlLock';
 import UrlForm from '../../components/form/UrlForm';
 
 import UrlPhaseResearch from '../../components/form/UrlPhaseResearch';
@@ -217,18 +218,6 @@ class Url extends React.Component {
     );
   }
 
-  renderLock(url) {
-    if (!this.props.currentUser) {
-      return <i>sign in to checkout this url</i>;
-    }
-    if (!url.locked) {
-      return <button className="btn btn-primary" onClick={this.handleLock.bind(this)}>Checkout this URL</button>;
-    } else if (this.props.currentUser._id === url.locked) {
-      return <button className="btn btn-primary" onClick={this.handleUnlock.bind(this)}>Checkin this URL</button>;
-    }
-    return '';
-  }
-
   renderContributors() {
     let bullets;
     if (!this.state.collapse.contributors) {
@@ -311,8 +300,7 @@ class Url extends React.Component {
               <h4 className="subtitle">{url.uuid}</h4>
               <h5>status: <span className={`status-${phase}-text`}>{phase}</span></h5>
               <hr />
-              {url.locked ? <div><h4>In Use</h4><p>Checked out by {url.lock_username} at {url.lock_time.toString() } </p></div> : undefined }
-              {this.renderLock(url)}
+              <UrlLock currentUser={currentUser} admin={admin} url={url} handleLock={this.handleLock.bind(this)} handleUnlock={this.handleUnlock.bind(this)} />
               <hr />
               <h4>Info</h4>
             </div>
