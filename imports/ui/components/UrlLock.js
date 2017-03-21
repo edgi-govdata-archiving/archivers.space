@@ -1,9 +1,10 @@
 import React from 'react';
 
+import { lockIsStale } from '../../selectors/url';
+
 const UrlLock = ({ currentUser, admin, url, handleLock, handleUnlock }) => {
-  // Calculate the threshold date for making url locks available for release.
-  const twoWeeksAgo = new Date();
-  twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+  // check for a stale lock (if locked)
+  const stale = lockIsStale(url);
 
   // Evaluate URL status.
   const status = url.locked ? `Checked out by ${url.lock_username} at ${url.lock_time.toString()}` : 'Not checked out';
@@ -19,10 +20,10 @@ const UrlLock = ({ currentUser, admin, url, handleLock, handleUnlock }) => {
   } else if (currentUser && url.locked && (currentUser._id === url.locked)) {
     // Users are allowed to release urls they checked out themselves.
     actions = <button className="btn btn-primary" onClick={handleUnlock}>Checkin this URL</button>;
-  } else if (currentUser && url.locked && admin && url.lock_time <= twoWeeksAgo) {
+  } else if (currentUser && url.locked && admin && stale) {
     // Admin users can release URLs that have been locked for two weeks.
-    actions = <button className="btn btn-primary" onClick={handleUnlock}>Checkin this URL</button>;
-  } else if (currentUser && url.locked && admin && url.lock_time > twoWeeksAgo) {
+    actions = <button className="btn btn-warning" onClick={handleUnlock}>Force-Checkin this URL</button>;
+  } else if (currentUser && url.locked && admin && !stale) {
     actions = <i>This URL has been checked out for less than two weeks.</i>;
   }
 

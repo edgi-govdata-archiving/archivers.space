@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { Roles } from 'meteor/alanning:roles';
-import { phaseSelector } from '../selectors/url';
+import { phaseSelector, lockIsStale } from '../selectors/url';
 import LockHistory from './lock_history';
 
 const normalizeUrl = require('../libs/normalize-url');
@@ -196,12 +196,9 @@ Meteor.methods({
 
   // eslint-disable-next-line meteor/audit-argument-checks
   'urls.unlock': function urlUnlock(urlId) {
-    // Calculate the threshold date for making url locks available for release.
-    const twoWeeksAgo = new Date();
-    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
-
     const url = Urls.findOne(urlId);
-    if ((url.locked && url.locked === this.userId) || (url.locked && Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP) && url.lock_time <= twoWeeksAgo)) {
+
+    if ((url.locked && url.locked === this.userId) || (url.locked && Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP) && lockIsStale(url))) {
       // Add a record of this lock/unlock cycle to lock_history.
       LockHistory.insert({
         url: urlId,
