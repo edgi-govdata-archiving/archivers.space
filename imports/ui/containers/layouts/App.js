@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { createContainer } from 'meteor/react-meteor-data';
-import Alerts from '../../components/Alerts';
+// import Alerts from '../../components/Alerts';
 
 // App component - represents the whole app
 // eslint-disable-next-line react/prop-types
@@ -26,7 +26,9 @@ const App = ({ currentUser, success, error, children }) => {
         </div>
       </nav>
       <div className="l-alerts">
+        { /**
         <Alerts />
+           **/ }
       </div>
       <div className="l-page">
         {children}
