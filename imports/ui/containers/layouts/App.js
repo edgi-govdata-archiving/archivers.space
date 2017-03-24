@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { createContainer } from 'meteor/react-meteor-data';
-import Alerts from '../../components/Alerts';
+import EnvAlert from '../../components/EnvAlert';
 
 // App component - represents the whole app
 // eslint-disable-next-line react/prop-types
@@ -26,7 +26,7 @@ const App = ({ currentUser, success, error, children }) => {
         </div>
       </nav>
       <div className="l-alerts">
-        <Alerts />
+        <EnvAlert />
       </div>
       <div className="l-page">
         {children}
@@ -37,7 +37,6 @@ const App = ({ currentUser, success, error, children }) => {
 };
 
 App.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   currentUser: PropTypes.object,
 };
 
