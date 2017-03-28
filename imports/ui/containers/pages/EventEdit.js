@@ -9,6 +9,7 @@ import Events from '../../../api/events';
 import Spinner from '../../components/Spinner';
 import Modal from '../../components/Modal';
 import EventForm from '../../components/form/EventForm';
+import Analytics from '../../../libs/analytics';
 
 class Event extends React.Component {
   constructor(props) {
@@ -16,6 +17,10 @@ class Event extends React.Component {
     this.state = {
       editing: false,
     };
+  }
+
+  componentWillMount() {
+    Analytics.page();
   }
 
   handleEdit() {

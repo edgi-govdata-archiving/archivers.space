@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import Analytics from '../libs/analytics';
 
 const Agencies = new Mongo.Collection('agencies');
 export default Agencies;
@@ -43,6 +44,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    Analytics.track("Inserted Agency", agency);
     Agencies.insert(newAgency(agency, this.userId));
   },
 
@@ -58,6 +60,8 @@ Meteor.methods({
         throw new Meteor.Error('agency already exists');
       }
     }
+
+    Analytics.track("Updated Agency", agency);
     Agencies.update(agency._id, { $set: changes });
   },
 
@@ -70,6 +74,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    Analytics.track("Removed Agency", agency);
     Agencies.remove(agencyId);
   },
 });

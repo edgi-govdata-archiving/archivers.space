@@ -7,31 +7,39 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import TableItems from '../../components/TableItems';
 import UserItem from '../../components/item/UserItem';
+import Analytics from '../../../libs/analytics';
 
-const UserList = ({ users, currentUser, admin }) => {
-  const userList = (
-    <div id="events" className="list page">
-      <div className="container">
-        <header className="header">
-          <div className="actions">
-            {(currentUser && admin) ? <Link className="new" to="/invites/new">Invite User</Link> : undefined }
-          </div>
-          <h1 className="title">Users</h1>
-        </header>
-        <table className="items table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>username</th>
-            </tr>
-          </thead>
-          <TableItems data={users} component={UserItem} />
-        </table>
+class UserList extends React.Component {
+  componentWillMount() {
+    Analytics.page();
+  }
+
+  render() {
+    const { users, currentUser, admin } = this.props;
+
+    return (
+      <div id="events" className="list page">
+        <div className="container">
+          <header className="header">
+            <div className="actions">
+              {(currentUser && admin) ? <Link className="new" to="/invites/new">Invite User</Link> : undefined }
+            </div>
+            <h1 className="title">Users</h1>
+          </header>
+          <table className="items table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>username</th>
+              </tr>
+            </thead>
+            <TableItems data={users} component={UserItem} />
+          </table>
+        </div>
       </div>
-    </div>
-  );
-  return userList;
-};
+    );
+  }
+}
 
 UserList.propTypes = {
   users: PropTypes.array,
@@ -40,6 +48,9 @@ UserList.propTypes = {
 };
 
 UserList.defaultProps = {
+  users: [],
+  currentUser: undefined,
+  admin: false,
 };
 
 export default createContainer(() => {

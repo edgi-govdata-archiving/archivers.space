@@ -5,37 +5,45 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import Urls from '../../../api/urls';
 import { phaseSelector } from '../../../selectors/url';
+import Analytics from '../../../libs/analytics';
 
-const Dashboard = ({ counts }) => {
-  const renderCountStat = (stat, i) => {
-    const countStat = (
-      <div key={i} className={`stat status-${stat.phase}-text`}>
-        <Link to={`/urls?phase=${stat.phase}`} className={`status-${stat.phase}-text`}>
-          <div className="stat-count">{stat.count || 0}</div>
-          <div className="stat-label">{stat.label}</div>
-        </Link>
-      </div>
-    );
-    return countStat;
-  };
+class Dashboard extends React.Component {
+  componentWillMount() {
+    Analytics.page();
+  }
 
-  return (
-    <div id="dashboard" className="dashboard">
-      <div className="info">
-        <h1 className="title">Harvesting <Link to="/urls">{counts.not_crawlable} of {counts.all}</Link> Proposed URLs</h1>
-        <div className="stats">
-          {[
-            { phase: 'research', label: 'researching', count: counts.research },
-            { phase: 'harvest', label: 'harvesting', count: counts.harvest },
-            { phase: 'bag', label: 'bagging', count: counts.bag },
-            { phase: 'describe', label: 'describing', count: counts.describe },
-            { phase: 'done', label: 'complete', count: counts.done },
-          ].map(renderCountStat)}
+  render() {
+    const { counts } = this.props;
+    const renderCountStat = (stat, i) => {
+      const countStat = (
+        <div key={i} className={`stat status-${stat.phase}-text`}>
+          <Link to={`/urls?phase=${stat.phase}`} className={`status-${stat.phase}-text`}>
+            <div className="stat-count">{stat.count || 0}</div>
+            <div className="stat-label">{stat.label}</div>
+          </Link>
+        </div>
+      );
+      return countStat;
+    };
+
+    return (
+      <div id="dashboard" className="dashboard">
+        <div className="info">
+          <h1 className="title">Harvesting <Link to="/urls">{counts.not_crawlable} of {counts.all}</Link> Proposed URLs</h1>
+          <div className="stats">
+            {[
+              { phase: 'research', label: 'researching', count: counts.research },
+              { phase: 'harvest', label: 'harvesting', count: counts.harvest },
+              { phase: 'bag', label: 'bagging', count: counts.bag },
+              { phase: 'describe', label: 'describing', count: counts.describe },
+              { phase: 'done', label: 'complete', count: counts.done },
+            ].map(renderCountStat)}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 Dashboard.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types, react/require-default-props

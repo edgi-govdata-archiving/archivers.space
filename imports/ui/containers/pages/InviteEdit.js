@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Accounts } from 'meteor/accounts-base';
 
+import Analytics from '../../../libs/analytics';
 import Invites from '../../../api/invites';
 
 import Spinner from '../../components/Spinner';
@@ -19,6 +20,10 @@ class Invite extends React.Component {
       password: '',
       passwordRepeat: '',
     };
+  }
+
+  componentWillMount() {
+    Analytics.page();
   }
 
   handleSubmit(e) {

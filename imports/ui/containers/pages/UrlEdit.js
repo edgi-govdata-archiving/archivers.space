@@ -6,6 +6,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
 
+import Analytics from '../../../libs/analytics';
 import Urls from '../../../api/urls';
 import UrlGroups from '../../../api/url_groups';
 import Events from '../../../api/events';
@@ -72,6 +73,7 @@ class Url extends React.Component {
   }
 
   componentWillMount() {
+    Analytics.page();
   }
 
   componentWillReceiveProps(nextProps) {

@@ -7,6 +7,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import AgencyForm from '../../components/form/AgencyForm';
 import NotFound from '../../components/pages/NotFound';
+import Analytics from '../../../libs/analytics';
 
 class NewAgency extends React.Component {
   constructor(props) {
@@ -14,6 +15,10 @@ class NewAgency extends React.Component {
     this.state = {
       editing: false,
     };
+  }
+
+  componentWillMount() {
+    Analytics.page();
   }
 
   handleSubmit(data) {

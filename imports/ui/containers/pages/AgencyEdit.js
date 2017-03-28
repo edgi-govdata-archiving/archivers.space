@@ -9,6 +9,7 @@ import Agencies from '../../../api/agencies';
 import AgencyForm from '../../components/form/AgencyForm';
 import Spinner from '../../components/Spinner';
 import Modal from '../../components/Modal';
+import Analytics from '../../../libs/analytics';
 
 class Agency extends React.Component {
   constructor(props) {
@@ -16,6 +17,10 @@ class Agency extends React.Component {
     this.state = {
       editing: false,
     };
+  }
+
+  componentWillMount() {
+    Analytics.page();
   }
 
   handleEdit() {
