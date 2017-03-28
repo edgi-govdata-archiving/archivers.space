@@ -6,6 +6,7 @@ import { Session } from 'meteor/session';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 
+import Analytics from '../../../libs/analytics';
 import Urls from '../../../api/urls';
 import { phaseSelector } from '../../../selectors/url';
 
@@ -22,6 +23,10 @@ class UrlsList extends Component {
     this.state = {
       hideCompleted: false,
     };
+  }
+
+  componentWillMount() {
+    Analytics.page();
   }
 
   handleQueryChange(e) {

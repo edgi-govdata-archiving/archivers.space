@@ -6,33 +6,40 @@ import { Roles } from 'meteor/alanning:roles';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import Agencies from '../../../api/agencies';
+import Analytics from '../../../libs/analytics';
 
 import TableItems from '../../components/TableItems';
 import AgencyItem from '../../components/item/AgencyItem';
 
-const AgencyList = ({ agencies, currentUser, admin }) => {
-  const agencyList = (
-    <div id="agencies" className="list page">
-      <div className="container">
-        <header className="header">
-          {(currentUser && admin) ? <Link className="new" to="/agencies/new">New Agency</Link> : undefined }
-          <h1 className="title">Agencies</h1>
-        </header>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>acronym</th>
-              <th>name</th>
-            </tr>
-          </thead>
-          <TableItems data={agencies} component={AgencyItem} />
-        </table>
+class AgencyList extends React.Component {
+  componentWillMount() {
+    Analytics.page();
+  }
+
+  render() {
+    const { agencies, currentUser, admin } = this.props;
+    return (
+      <div id="agencies" className="list page">
+        <div className="container">
+          <header className="header">
+            {(currentUser && admin) ? <Link className="new" to="/agencies/new">New Agency</Link> : undefined }
+            <h1 className="title">Agencies</h1>
+          </header>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>acronym</th>
+                <th>name</th>
+              </tr>
+            </thead>
+            <TableItems data={agencies} component={AgencyItem} />
+          </table>
+        </div>
       </div>
-    </div>
-  );
-  return agencyList;
-};
+    );
+  }
+}
 
 AgencyList.propTypes = {
   agencies: PropTypes.array,
@@ -41,6 +48,9 @@ AgencyList.propTypes = {
 };
 
 AgencyList.defaultProps = {
+  agencies: [],
+  currentUser: undefined,
+  admin: false,
 };
 
 export default createContainer(() => {

@@ -37,6 +37,7 @@ const App = ({ currentUser, success, error, children }) => {
 };
 
 App.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   currentUser: PropTypes.object,
 };
 
