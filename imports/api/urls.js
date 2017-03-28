@@ -4,6 +4,7 @@ import { check } from 'meteor/check';
 import { Roles } from 'meteor/alanning:roles';
 import { phaseSelector, lockIsStale } from '../selectors/url';
 import LockHistory from './lock_history';
+import Analytics from '../libs/analytics';
 
 const normalizeUrl = require('../libs/normalize-url');
 
@@ -105,6 +106,7 @@ Meteor.methods({
     if (errors.length) {
       throw new Meteor.Error(errors.join('\n'));
     }
+    Analytics.track("Inserted Urls", urls);
   },
 
   // eslint-disable-next-line meteor/audit-argument-checks
@@ -127,6 +129,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    Analytics.track("Inserted Url", url);
     Urls.insert(newUrl(url, this.userId));
   },
 
@@ -157,6 +160,7 @@ Meteor.methods({
       }
     }
 
+    Analytics.track("Updated Url", url);
     Urls.update(url._id, { $set: changes });
   },
 
@@ -166,7 +170,8 @@ Meteor.methods({
     if (!Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
       throw new Meteor.Error('not-authorized');
     }
-
+    
+    Analytics.track("Removed Url", url);
     Urls.remove(urlId);
   },
 
@@ -186,6 +191,7 @@ Meteor.methods({
       } });
     }
 
+    Analytics.track("Locked Url", { urlId });
     Urls.update(urlId, { $set: {
       locked: this.userId,
       lock_username: user.username,
@@ -207,6 +213,7 @@ Meteor.methods({
         unlocked_at: new Date(),
       });
 
+      Analytics.track("Unlocked Url", { urlId });
       // Remove the lock.
       Urls.update(urlId, { $set: {
         locked: undefined,

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import Analytics from '../libs/analytics';
 
 const Invites = new Mongo.Collection('invites');
 export default Invites;
@@ -29,6 +30,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    Analytics.track("Inserted Invite", invite);
     Invites.insert(newInvite(invite, this.userId));
   },
 
@@ -44,6 +46,7 @@ Meteor.methods({
         throw new Meteor.Error('invite already exists');
       }
     }
+    Analytics.track("Updated Invite", invite);
     Invites.update(invite._id, { $set: changes });
   },
 
@@ -56,6 +59,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    Analytics.track("Removed Invite", invite);
     Invites.remove(inviteId);
   },
 });

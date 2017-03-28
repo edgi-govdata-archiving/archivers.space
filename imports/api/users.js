@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { check } from 'meteor/check';
+import Analytics from '../libs/analytics';
 
 if (Meteor.isServer) {
   Meteor.publish('userList', () => {
@@ -47,6 +48,7 @@ Meteor.methods({
     } else if (!Roles.userIsInRole(this.userId, 'root', Roles.GLOBAL_GROUP)) {
       throw new Meteor.Error('not-authorized');
     }
+    Analytics.track("Added Admin", { userId });
     Roles.addUsersToRoles(userId, ['admin'], Roles.GLOBAL_GROUP);
   },
 
@@ -58,6 +60,7 @@ Meteor.methods({
     } else if (!Roles.userIsInRole(this.userId, 'root', Roles.GLOBAL_GROUP)) {
       throw new Meteor.Error('not-authorized');
     }
+    Analytics.track("Removed Admin", { userId });
     Roles.removeUsersFromRoles(userId, ['admin'], Roles.GLOBAL_GROUP);
   },
 
@@ -69,6 +72,7 @@ Meteor.methods({
     } else if (!Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
       throw new Meteor.Error('not-authorized');
     }
+    Analytics.track("Added Checker", { userId });
     Roles.addUsersToRoles(userId, ['checker'], Roles.GLOBAL_GROUP);
   },
 
@@ -80,6 +84,7 @@ Meteor.methods({
     } else if (!Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
       throw new Meteor.Error('not-authorized');
     }
+    Analytics.track("Removed Checker", { userId });
     Roles.removeUsersFromRoles(userId, ['checker'], Roles.GLOBAL_GROUP);
   },
 
@@ -91,6 +96,7 @@ Meteor.methods({
     } else if (!Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
       throw new Meteor.Error('not-authorized');
     }
+    Analytics.track("Added Bagger", { userId });
     Roles.addUsersToRoles(userId, ['bagger'], Roles.GLOBAL_GROUP);
   },
 
@@ -102,6 +108,7 @@ Meteor.methods({
     } else if (!Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
       throw new Meteor.Error('not-authorized');
     }
+    Analytics.track("Removed Bagger", { userId });
     Roles.removeUsersFromRoles(userId, ['bagger'], Roles.GLOBAL_GROUP);
   },
 
@@ -113,6 +120,7 @@ Meteor.methods({
     } else if (!Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
       throw new Meteor.Error('not-authorized');
     }
+    Analytics.track("Added Describer", { userId });
     Roles.addUsersToRoles(userId, ['describer'], Roles.GLOBAL_GROUP);
   },
 
@@ -124,6 +132,7 @@ Meteor.methods({
     } else if (!Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
       throw new Meteor.Error('not-authorized');
     }
+    Analytics.track("Removed Describer", { userId });
     Roles.removeUsersFromRoles(userId, ['describer'], Roles.GLOBAL_GROUP);
   },
 });

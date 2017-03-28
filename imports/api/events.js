@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import Analytics from '../libs/analytics';
 
 const Events = new Mongo.Collection('events');
 export default Events;
@@ -53,6 +54,7 @@ Meteor.methods({
     }
 
     attendees.push(this.userId);
+    Analytics.track("Joined Event", event);
     Events.update(event._id, { $set: { attendees } });
   },
 
@@ -73,6 +75,7 @@ Meteor.methods({
     if (i !== -1) {
       attendees.splice(i, 1);
     }
+    Analytics.track("Left Event", event);
     Events.update(event._id, { $set: { attendees } });
   },
 
@@ -89,6 +92,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    Analytics.track("Inserted Event", event);
     Events.insert(newEvent(event, this.userId));
   },
 
@@ -108,6 +112,8 @@ Meteor.methods({
         throw new Meteor.Error('event already exists');
       }
     }
+
+    Analytics.track("Updated Event", event);
     Events.update(event._id, { $set: changes });
   },
 
@@ -119,7 +125,8 @@ Meteor.methods({
       // If the task is private, make sure only the owner can delete it
       throw new Meteor.Error('not-authorized');
     }
-
+    
+    Analytics.track("Removed Event", event);
     Events.remove(eventId);
   },
 });
