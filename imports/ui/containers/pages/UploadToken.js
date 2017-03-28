@@ -7,9 +7,11 @@ import { Session } from 'meteor/session';
 
 import Spinner from '../../components/Spinner';
 import { uploadPath } from '../../../selectors/url';
+import Analytics from '../../../libs/analytics';
 
 class UploadToken extends React.Component {
   componentWillMount() {
+    Analytics.page();
     if (!this.props.credentials) {
       this.handleGenerateUploadToken.call(this);
     }

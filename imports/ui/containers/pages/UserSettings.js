@@ -6,6 +6,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
 
+import Analytics from '../../../libs/analytics';
 import Spinner from '../../components/Spinner';
 
 class UserSettings extends React.Component {
@@ -22,6 +23,11 @@ class UserSettings extends React.Component {
       repeatPass: '',
     };
   }
+
+  componentWillMount() {
+    Analytics.page();
+  }
+
   handleChange(name, e) {
     this.setState(Object.assign({}, this.state, { [name]: e.target.value }));
   }

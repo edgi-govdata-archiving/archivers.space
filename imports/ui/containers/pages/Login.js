@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import Spinner from '../../components/Spinner';
+import Analytics from '../../../libs/analytics';
 
 class Login extends React.Component {
   constructor(props) {
@@ -14,6 +15,10 @@ class Login extends React.Component {
       username: '',
       password: '',
     };
+  }
+
+  componentWillMount() {
+    Analytics.page();
   }
 
   handleSubmit(e) {

@@ -5,12 +5,17 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 
+import Analytics from '../../../libs/analytics';
 import Spinner from '../../components/Spinner';
 
 class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  componentWillMount() {
+    Analytics.page();
   }
 
   // eslint-disable-next-line no-unused-vars

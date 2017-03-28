@@ -7,6 +7,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import EventForm from '../../components/form/EventForm';
 import NotFound from '../../components/pages/NotFound';
+import Analytics from '../../../libs/analytics';
 
 class NewEvent extends React.Component {
   constructor(props) {
@@ -15,6 +16,10 @@ class NewEvent extends React.Component {
       message: '',
       error: '',
     };
+  }
+
+  componentWillMount() {
+    Analytics.page();
   }
 
   handleSubmit(data) {

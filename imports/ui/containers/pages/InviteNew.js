@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { createContainer } from 'meteor/react-meteor-data';
 
+import Analytics from '../../../libs/analytics';
 import Invites from '../../../api/invites';
 import EventPicker from '../../components/EventPicker';
 import NotFound from '../../components/pages/NotFound';
@@ -27,6 +28,10 @@ class NewInvite extends React.Component {
       error: '',
       event: undefined,
     };
+  }
+
+  componentWillMount() {
+    Analytics.page();
   }
 
   handleSubmit(e) {

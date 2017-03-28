@@ -9,31 +9,38 @@ import Events from '../../../api/events';
 
 import TableItems from '../../components/TableItems';
 import EventItem from '../../components/item/EventItem';
+import Analytics from '../../../libs/analytics';
 
-const EventList = ({ events, currentUser, admin }) => {
-  const eventList = (
-    <div id="events" className="list page">
-      <div className="container">
-        <header className="header">
-          {(currentUser && admin) ? <Link className="new" to="/events/new">Add An Event</Link> : undefined }
-          <h1 className="title">Events</h1>
-        </header>
-        <table className="items table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>name</th>
-              <th>starts</th>
-              <th>stops</th>
-            </tr>
-          </thead>
-          <TableItems data={events} component={EventItem} />
-        </table>
+class EventList extends React.Component {
+  componentWillMount() {
+    Analytics.page();
+  }
+
+  render() {
+    const { events, currentUser, admin } = this.props;
+    return (
+      <div id="events" className="list page">
+        <div className="container">
+          <header className="header">
+            {(currentUser && admin) ? <Link className="new" to="/events/new">Add An Event</Link> : undefined }
+            <h1 className="title">Events</h1>
+          </header>
+          <table className="items table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>name</th>
+                <th>starts</th>
+                <th>stops</th>
+              </tr>
+            </thead>
+            <TableItems data={events} component={EventItem} />
+          </table>
+        </div>
       </div>
-    </div>
-  );
-  return eventList;
-};
+    );
+  }
+}
 
 EventList.propTypes = {
   events: PropTypes.array,
@@ -42,6 +49,9 @@ EventList.propTypes = {
 };
 
 EventList.defaultProps = {
+  events: [],
+  currentUser: undefined,
+  admin: false,
 };
 
 export default createContainer(() => {

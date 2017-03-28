@@ -8,6 +8,7 @@ import { Session } from 'meteor/session';
 import { newUrl } from '../../../api/urls';
 import Events from '../../../api/events';
 import Agencies from '../../../api/agencies';
+import Analytics from '../../../libs/analytics';
 
 import NotFound from '../../components/pages/NotFound';
 
@@ -19,6 +20,10 @@ class NewUrl extends React.Component {
       error: undefined,
       data: newUrl({}),
     };
+  }
+
+  componentWillMount() {
+    Analytics.page();
   }
 
   handleChange(name, e) {
