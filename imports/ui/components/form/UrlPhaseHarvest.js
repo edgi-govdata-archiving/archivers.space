@@ -19,7 +19,7 @@ export default class UrlPhaseHarvest extends React.Component {
       }
     };
     // Post data to URL which handles post request
-    xhttp.open('POST', '//zip-starter.herokuapp.com');
+    xhttp.open('POST', '//zip-starter.archivers.space');
     xhttp.setRequestHeader('Content-Type', 'application/json');
     // You should set responseType as blob for binary responses
     xhttp.responseType = 'blob';
