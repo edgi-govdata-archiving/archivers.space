@@ -26,6 +26,14 @@ if (Meteor.isServer) {
     return urls;
   });
 
+  Meteor.publish('urls.forEvent', (eventId) => {
+    check(eventId, String);
+    const urls = Urls.find({ event_id: eventId }, {
+      sort: [['priority', 'desc']],
+    });
+    return urls;
+  });
+
   const phases = [
     'research',
     'harvest',
@@ -106,7 +114,7 @@ Meteor.methods({
     if (errors.length) {
       throw new Meteor.Error(errors.join('\n'));
     }
-    Analytics.track("Inserted Urls", urls);
+    Analytics.track('Inserted Urls', urls);
   },
 
   // eslint-disable-next-line meteor/audit-argument-checks
@@ -129,7 +137,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    Analytics.track("Inserted Url", url);
+    Analytics.track('Inserted Url', url);
     Urls.insert(newUrl(url, this.userId));
   },
 
@@ -160,7 +168,7 @@ Meteor.methods({
       }
     }
 
-    Analytics.track("Updated Url", url);
+    Analytics.track('Updated Url', url);
     Urls.update(url._id, { $set: changes });
   },
 
@@ -170,8 +178,8 @@ Meteor.methods({
     if (!Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    Analytics.track("Removed Url", url);
+
+    Analytics.track('Removed Url', urlId);
     Urls.remove(urlId);
   },
 
@@ -191,7 +199,7 @@ Meteor.methods({
       } });
     }
 
-    Analytics.track("Locked Url", { urlId });
+    Analytics.track('Locked Url', { urlId });
     Urls.update(urlId, { $set: {
       locked: this.userId,
       lock_username: user.username,
@@ -213,7 +221,7 @@ Meteor.methods({
         unlocked_at: new Date(),
       });
 
-      Analytics.track("Unlocked Url", { urlId });
+      Analytics.track('Unlocked Url', { urlId });
       // Remove the lock.
       Urls.update(urlId, { $set: {
         locked: undefined,
@@ -225,6 +233,32 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('not-authorized');
     }
+  },
+
+  'urls.setEvent': function setEvent(eventId, urlId) {
+    check(urlId, String);
+    check(eventId, String);
+    const url = Urls.findOne(urlId);
+    if (!url) {
+      throw new Meteor.Error('not found');
+    }
+    if (!Roles.userIsInRole(this.userId, 'admin', Roles.GLOBAL_GROUP)) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    Analytics.track('Event AddedUrl', { eventId, urlId });
+    Urls.update(urlId, {
+      $set: { event_id: eventId },
+    });
+  },
+
+  'urls.removeEvent': function removeEvent(urlId) {
+    check(urlId, String);
+
+    Analytics.track('Event RemovedUrl', { urlId });
+    Urls.update(urlId, {
+      $set: { event_id: undefined },
+    });
   },
 
   // eslint-disable-next-line meteor/audit-argument-checks
