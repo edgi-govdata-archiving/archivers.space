@@ -102,7 +102,7 @@ export default createContainer(({ location }) => {
   const query = Session.get('urls.query') || q;
   if (query) {
     Meteor.subscribe('urls', page * pageSize);
-    urls = Urls.find({ $or: [{ url: new RegExp(`.*${query}.*`, 'i') }, { uuid: new RegExp(`.*${query}.*`, 'i') }] }, { limit: 30 }).fetch();
+    urls = Urls.find({ $or: [{ url: new RegExp(`.*${query}.*`, 'i') }, { uuid: new RegExp(`.*${query}.*`, 'i') }] }, { limit: 1000 }).fetch();
   } else {
     subscription = (phase === '') ? 'urls' : `urls.${phase}`;
     selector = phaseSelector(phase);
